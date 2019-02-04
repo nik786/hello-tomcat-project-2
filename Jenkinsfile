@@ -28,7 +28,7 @@ stage('Set Variables') {
 try {
     stage('maven Build') {
      
-     dir('deploy-test') {
+     dir('deploy-test-2') {
       //deleteDir()
       git url: "https://github.com/nik786/hello-tomcat-project-2", branch: "${branch}", credentialsId: "${gitCreds}"
 	  sh 'printenv'
@@ -48,8 +48,8 @@ try {
 
  stage('execute smoke test'){
 		    ansiblePlaybook \
-		    playbook: '/etc/ansible/helo.yml',
-		    inventory: '/etc/ansible/local.yml'/*,
+		    playbook: '/var/lib/jenkins/helo.yml',
+		    inventory: '/var/lib/jenkins/local.yml'/*,
 			//  extraVars: [
 			//	  ansible_ssh_user: "$SSH_USR",
 				//  ansible_ssh_pass: "$SSH_PSW",
