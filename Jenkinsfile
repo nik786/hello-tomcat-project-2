@@ -35,7 +35,7 @@ def ansible() {
 }
 
 try{
-		node('ec2') {
+		node('master') {
 				stage('Execute Build'){}
 				
 				stage('Set Variables') {
