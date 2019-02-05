@@ -1,32 +1,33 @@
 import java.text.SimpleDateFormat
 
-def gitCreds = 'AWGITTAPP'
-def projectName = 'hello-tomcat-project-2'
-def branch = "$BRANCH_NAME"
-def jobName = jobName
-def deploy_Env = null
-def environment = null
+projectName = null
+branch = "master"
+jobName = null
+deploy_Env = null
+environment = null
 
-cleanupWorkspace() {
+def cleanupWorkspace() {
 	  dir('.') {
         deleteDir()
     }
 }
 
 def checkout() {
-    git url: "https://github.com/nik786/${projectName}.git", branch: "*/${branch}", credentialsId: "${gitCreds}"		
+    git url: "https://github.com/nik786/${projectName}.git", branch: "${branch}"		
 }
 
 def build() {
-		dir("${projectName}") {
-				sh "mvn clean package"
+		dir(".") {
+		    withEnv(["MAVEN=/opt/maven/bin", "PATH=${PATH}:/opt/maven/bin"]) {
+		        sh "mvn clean package"   
+		    }
 		}
 }
 
 def s3() {
 		def dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm")
 		def date = dateFormat.format(new Date())
-		sh "aws s3 cp /var/lib/jenkins/workspace/${projectName}/target/mavenproject1-1.0-SNAPSHOT.war s3://hello-artifactory/${date}/mavenproject1-1.0-SNAPSHOT.war"
+		sh "aws s3 cp /var/lib/jenkins/workspace/${jobName}/target/mavenproject1-1.0-SNAPSHOT.war s3://hello-artifactory/${date}/mavenproject1-1.0-SNAPSHOT.war"
 }
 
 def ansible() {
@@ -35,11 +36,11 @@ def ansible() {
 }
 
 try{
-		node('master') {
+		node {
 				stage('Execute Build'){}
 				
 				stage('Set Variables') {
-						deploy_Env = "$BRANCH_NAME"
+						deploy_Env = "${branch}"
 						jobName = "$JOB_NAME"
 						projectName = 'hello-tomcat-project-2'
 						environment = "${deploy_Env}"
@@ -51,6 +52,10 @@ try{
 						cleanupWorkspace()
 				}
 				
+				stage('Checkout') {
+				    checkout()
+				}
+	 			
 				stage('Build') {
 						build()  
 				}
