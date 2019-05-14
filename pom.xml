@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+ 
     <groupId>com.mycompany</groupId>
     <artifactId>mavenproject1</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
+ 
     <name>mavenproject1</name>
-
+ 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>
     </properties>
-    
+   
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -22,8 +24,9 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
+ 
     <build>
+        <finalName>${project.artifactId}-${project.version}-${timestamp}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -33,8 +36,8 @@
                     <source>1.7</source>
                     <target>1.7</target>
                     <compilerArguments>
-                        <endorseddirs>${endorsed.dir}</endorseddirs>
-                    </compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>                        
+                    </compilerArguments>                    
                 </configuration>
             </plugin>
             <plugin>
@@ -72,5 +75,5 @@
             </plugin>
         </plugins>
     </build>
-
+ 
 </project>
