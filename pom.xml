@@ -23,7 +23,6 @@
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>    
         <sonar.projectKey>sample_test_01</sonar.projectKey>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <!-- Other SonarQube properties can be configured here -->
     </properties>
 
     <dependencies>
@@ -31,8 +30,12 @@
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>8.0</version>
-            <scope>provided</scope>
-        </dependency>
+	    <scope>provided</scope>
+
+         </dependency>
+
+
+
     </dependencies>
 
 
