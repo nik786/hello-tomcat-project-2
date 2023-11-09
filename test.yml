@@ -2,15 +2,20 @@ eurekazuul:
   serviceClientVersionMap:
     debitcardsetup-iapi:
       allowableConsumers:
-        - custentitement-iapi
-      defaultVersion:
-        defaultMajorMinorVersion: 1.3-1.11
-        versionRules:
-          1:
-            defaultMinorVersion: 3-1.13
+      - custentitement-iapi
       clientVersionRules:
+        default:
+          defaultMajorMinorVersion: 1.3-1.11
+          versionRules:
+            1:
+              defaultMinorVersion: 3-1.13
         sysTIAGGDHGSDH:
           defaultMajorMinorVersion: 1.3-1.11
           versionRules:
             1:
+              defaultMinorVersion: 3-1.13
+        sysTIAGGDHGSDK:
+          defaultMajorMinorVersion: 1.3-1.11
+          versionRules:
+            '1':
               defaultMinorVersion: 3-1.13
